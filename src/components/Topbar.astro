@@ -1,0 +1,126 @@
+---
+    import { Image } from 'astro:assets'
+    import mainLogo from '../assets/Principal.png'
+---
+
+<nav id="topbar" class="shadow-lg">
+    <div class="container mx-auto flex justify-between items-center py-4">
+        <a href="./"><Image src={mainLogo} width="160" height="80" alt="Icono BrosValley" /> </a>
+        <ul class="flex m-0 p-0 gap-5 items-center">
+            <li class="nav__link"><a href="acerca.html">Acerca</a></li>  
+            
+            <li class="nav__link dropdown">
+                <a href="#" class="dropbtn">Servicios</a>
+                <div class="dropdown-content">
+                    <a href="sistemas.html">Sistemas hechos a la medida</a>
+                    <a href="paginas-web.html">Páginas web</a>
+                    <a href="apps-moviles.html">Apps móviles</a>
+                    <a href="videojuegos.html">Creación de videojuegos</a>
+                    <a href="asesorias.html">Asesorías y Clases de Sistemas Computacionales</a>
+                    <a href="consultoria.html">Consultoría tecnológica</a>
+                </div>
+            </li>
+            
+            <li class="nav__link border-2 border-black rounded-full"><a href="inicia-tu-proyecto.html">Contáctanos</a></li>
+
+        </ul>
+        <button class="btn-menu btn-transparent btn-menu--open">
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox="0 0 24 24"><title>menu_fill</title>
+                <g id="menu_fill" fill='none' fill-rule='nonzero'><path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/>
+                <path fill='#09244BFF' class="fillTopBar" d='M20 17.5a1.5 1.5 0 0 1 .144 2.993L20 20.5H4a1.5 1.5 0 0 1-.144-2.993L4 17.5h16Zm0-7a1.5 1.5 0 0 1 0 3H4a1.5 1.5 0 0 1 0-3h16Zm0-7a1.5 1.5 0 0 1 0 3H4a1.5 1.5 0 1 1 0-3h16Z'/></g></svg>
+        </button>
+        <button class="btn-menu btn-transparent btn-menu--close hidden">
+            <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox="0 0 24 24"><title>close_fill</title>
+                <g id="close_fill" fill='none' fill-rule='evenodd'>
+                    <path  d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/>
+                    <path fill='#09244BFF' class="fillTopBar" d='m12 14.122 5.303 5.303a1.5 1.5 0 0 0 2.122-2.122L14.12 12l5.304-5.303a1.5 1.5 0 1 0-2.122-2.121L12 9.879 6.697 4.576a1.5 1.5 0 1 0-2.122 2.12L9.88 12l-5.304 5.304a1.5 1.5 0 1 0 2.122 2.12L12 14.123Z'/></g>
+            </svg>
+        </button>
+    </div>
+</nav>
+
+<style>
+    .nav__link {
+        padding: 0.5em 1em;
+        /* margin-left: 20px; */
+        transition: color 0.3s ease;
+        text-decoration: none;
+        list-style: none;
+        &:not(:last-of-type){
+            border-bottom: 1px solid transparent;            
+        }
+
+    }
+
+    .nav__link a{
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .nav__link:hover{
+        color: var(--400);
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: var(--700);
+        background-color: transparent;
+        cursor: pointer;
+        padding: 0.5em 1em;
+        border-radius: 0.5rem;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 320px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: #000;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .dropdown-content a:hover {
+        background-color: var(--200);
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: inline-block;
+        left: 0;
+        top: 40px;
+    }
+
+    .btn-transparent{
+        background-color: transparent;
+        cursor: pointer;
+        /* margin: 0; */
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border: none;
+    }
+
+    .btn-menu--close{
+        display: block;
+        z-index: 101;    
+    }
+    @media (width >= 64rem){
+
+        .btn-menu--open, .btn-menu--close{
+            display: none;
+        }
+    }
+</style>

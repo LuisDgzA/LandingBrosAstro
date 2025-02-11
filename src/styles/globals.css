@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+    --color-celurean-100: #28B2EF;
+    --color-celurean-200: #2696E7;
+    --color-celurean-300: #2487E3;
+    --color-celurean-400: #2169DC;
+    --color-celurean-500: #1F4DD4;
+    --color-celurean-600: #1C30CD;
+}
+
+:root{
+    --50: #E8EFFD;
+    --200: #A6C2F7;
+    --100: #D5E2FB;
+    --300: #7CA6F3;
+    --400: #5289EF;
+    --500: #276CEB;
+    --600: #1352C9;
+    --700: #0E3D95;
+    --800: #092862;
+    --900: #051533;
+    --950: #020A17;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn_gen {
+    padding: 0.5rem 1.5rem;
+    background-color: var(--color-celurean-500);
+    color: #fff;
+    border-radius: 3rem;
+    text-decoration: none;
+}
+

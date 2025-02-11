@@ -1,11 +1,157 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
 import Layout from '../layouts/Layout.astro';
+import '../styles/globals.css'
+import Topbar from '../components/Topbar.astro';
+
+import hero_home from '../assets/hero_home.png'
+import Service from '../components/Service.astro';
+import SectionStack from '../Sections/SectionStack.astro';
+import SectionFindus from '../Sections/SectionFindus.astro';
+import Footer from '../components/Footer.astro';
+
+const services = await getCollection('services')
+console.log(services);
+
+
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="brosvalley">
+	<header>
+		<Topbar/>
+		<div class="wrapper__main">
+			<div class="container mx-auto fadeIn">
+				<div class="flex pt-20 pb-8 gap-8">
+					<div class="w-1/2 order-0">
+						<h1><span class="bg-gray-200 text-sm rounded font-normal px-3 py-1">Desarrollo de software</span></h1>
+						<h1 class="text-4xl font-bold"> <br><span class="text-celurean-500">Soluciones digitales</span>, <br> futuro sin fronteras</h1>
+						<p class="mt-4">BrosValley es tu aliado tecnológico para llevar tu producto o servicio al siguiente nivel. Así que si estás listo, contáctanos hoy mismo</p>
+						<a class="btn_gen mt-6 inline-block" href="inicia-tu-proyecto.html">Inicia tu proyecto</a>
+					</div>
+					<div class="w-1/2 grid place-items-center order-1">
+						<Image class="hero_img"  src={hero_home}  alt="Imagen Home"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main>
+		<section id="services" class="py-20">
+            <div class="container mx-auto">
+                <h2 class="text-center text-3xl font-bold py-16">Nuestros <span class="text-celurean-500">servicios</span></h2>
+                <div class="services__wrapper">                    
+                    {
+						services.map((service, index) =>(
+							<Service {...service.data } index={index+1}/>
+						))
+					}
+                </div>
+            </div>
+            
+        </section>
+		<SectionStack/>
+		<SectionFindus/>
+		<Footer/>
+	</main>
 </Layout>
+ <style>
+	.hero_img{
+		width: 80%;
+		max-width: none;
+	}
+	.wrapper__main{
+		background: url("../assets/hermo_home_bg.png");
+		background-position: bottom;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	#services{
+		background: linear-gradient(180deg, #ecf9ff 0%, #A4E4FF 100%);
+	}
+
+	.services__wrapper{
+		display: grid;
+		gap: 3rem;
+		grid-template-areas:
+		"img1 text1"
+		"img2 text2"
+		"img3 text3"
+		"img4 text4"
+		"img5 text5"
+		"img6 text6";
+							
+		grid-template-columns: 1fr 1fr;
+		position: relative;
+	}
+
+	
+	
+
+	@media (width < 991.98px){
+		.services__wrapper{
+			flex-direction: column;
+			
+			grid-template-areas:
+			"img1"
+			"text1"
+			"img2" 
+			"text2"
+			"img3"
+			"text3"
+			"img4"
+			"text4"
+			"img5"
+			"text5"
+			"img6"
+			"text6";
+								
+			grid-template-columns: 1fr;
+			position: relative;
+		}
+	}
+ </style>
+
+ <script>
+	const $service_text_items = document.querySelectorAll(".services__item"),
+    $img_service = document.querySelectorAll(".img__service");
+    
+
+    
+
+    document.addEventListener("scroll", (event) => {
+        if (window.innerWidth > 991) {
+    
+            if($img_service[$img_service.length - 1].getBoundingClientRect().top > -50){
+                //contar cuantos elementos tienen un top negativo y regresar ese valor para saber el index
+                let index = getTopDistance($service_text_items);
+                $img_service.forEach($img => {
+                    $img.classList.remove("active")
+                })
+                $img_service[index].classList.add("active")
+            }
+        }else{
+            $img_service.forEach($img => {
+                $img.classList.add("active")
+            })
+        }
+    });
+
+	function getTopDistance(array:any){
+		let contador = 0;
+		for (let index = 0; index < array.length; index++) {
+
+			let distanceTop = array[index].getBoundingClientRect().top
+
+			if((distanceTop * -1) + 300 >= array[index].offsetHeight ){
+				contador ++             
+			}       
+		}
+		return contador;
+	}
+ </script>

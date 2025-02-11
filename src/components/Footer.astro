@@ -1,0 +1,80 @@
+---
+    import { Image } from "astro:assets";
+    import BrosBalleyWhite from '../assets/icons/BV-blanco.png'
+---
+
+<footer class="py-8">
+    <div class="container mx-auto">
+        <div class="flex justify-between">
+            <div class="flex gap-12">
+                <div>
+                    <h4 class="inline-block border-b-white border-b-2 mb-4">Ponte en contacto</h4>
+                    <ul class="p-0 list-none flex flex-col gap-2 m-0">
+                        <li class="text-sm font-normal">Calle Mariano Matamoros 212 despacho 9, <br> Col Centro, 42000 Pachuca de Soto, Hgo. México</li>
+                        <li class="text-sm font-normal"><a class="" href="mailto:contacto@brosvalley.com">contacto@brosvalley.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="inline-block border-b-white border-b-2 mb-4">Conócenos</h4>
+                    <ul class="p-0 list-none flex flex-col gap-2 m-0">
+                        <li class="text-sm font-normal"><a class="" href="acerca.thml">Nosotros</a></li>
+                        <li class="text-sm font-normal"><a class="" href="inicia-tu-proyecto.html">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wrapper__footer--social">
+                <!-- <i class="fa-brands fa-square-facebook"></i> -->
+                <div class="text-center">
+                    <Image class="m-auto" src={BrosBalleyWhite} width="100" alt="Logo-BrosValley"/>                            
+                </div>
+                <div class="text-center mt-4">
+                    <a class="footer__link footer__link--facebook" href="https://www.facebook.com/profile.php?id=61556608951543&mibextid=ZbWKwL">
+                        <svg class="footer-svg" xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox="0 0 24 24">
+                            <title>facebook_fill</title>
+                            <g id="facebook_fill" fill='none' fill-rule='nonzero'>
+                                <path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/>
+                                <path fill='#ffffff' class="fillable" d='M13.5 21.888C18.311 21.164 22 17.013 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 5.013 3.689 9.165 8.5 9.888V15H9a1.5 1.5 0 0 1 0-3h1.5v-2A3.5 3.5 0 0 1 14 6.5h.5a1.5 1.5 0 0 1 0 3H14a.5.5 0 0 0-.5.5v2H15a1.5 1.5 0 0 1 0 3h-1.5v6.888Z'/>
+                            </g>
+                        </svg>
+                    </a>
+                    <a class="footer__link footer__link--instagram" href="#">
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox="0 0 24 24">
+                            <title>ins_line</title>
+                            <g id="ins_line" fill='none' fill-rule='evenodd'>
+                                <path d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/>
+                                <path fill='#ffffff' class="fillable" d='M16 3a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5h8Zm0 2H8a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3Zm-4 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4.5-3.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z'/></g>
+                        </svg>
+                    </a>
+                </div>                   
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    footer{
+        background: linear-gradient(180deg, #274B87 0%, #0e2347 100%);
+        color: #fff;
+
+    }
+
+    .footer__link{
+        display: inline-block;
+        padding: 0.3rem;
+        border-radius: 50%;
+        /* border: 1px solid red; */
+        
+    }
+
+    .footer__link--facebook:hover{
+        background-color: #395498;
+    }
+    .footer__link--twitter:hover{
+        background-color: #1c96e9;
+    }
+    .footer__link--instagram:hover{    
+        background: linear-gradient(to right top, #f7c44e, #e54763, #ab2fb3);
+
+    }
+</style>

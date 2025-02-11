@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "imgSrc": "../assets/icons/service-web.svg",
+        "alt": "service-web-icon",
+        "title": "Sistemas hechos a la medida",
+        "description": "Nuestro servicio de <strong>desarrollo de sistemas a medida</strong> está diseñado para empresas que buscan superar los desafíos únicos de su industria con tecnología innovadora y eficiente. Desde sistemas de gestión empresarial hasta aplicaciones de software complejas, nuestro equipo de expertos en tecnología trabaja en estrecha colaboración contigo para desarrollar soluciones que no solo resuelvan problemas, sino que también impulsen el crecimiento y la eficiencia operativa."
+    },
+    {
+        "id": 2,
+        "imgSrc": "../assets/icons/service-pages.svg",
+        "alt": "service-pages-icon",
+        "title": "Páginas web",
+        "description": "Nuestro servicio de <strong>desarrollo de páginas web</strong> está diseñado para empresas visionarias que buscan marcar la diferencia en el mundo digital. Con un enfoque en la innovación, la usabilidad y el diseño vanguardista, creamos sitios web que no solo lucen impresionantes, sino que también son intuitivos y eficientes."
+    },
+    {
+        "id": 3,
+        "imgSrc": "../assets/icons/services-app.svg",
+        "alt": "service-app-icon",
+        "title": "App móviles",
+        "description": "Nos especializamos en el <strong>desarrollo de aplicaciones para Android e iOS</strong>, entregando soluciones que no solo cumplen, sino que superan las expectativas de nuestros clientes. Nuestro equipo de desarrolladores experimentados utiliza las últimas tecnologías y prácticas de programación para crear aplicaciones que ofrecen una experiencia de usuario sin igual, rendimiento superior y aprovechamiento óptimo de las capacidades de cada plataforma."
+    },
+    {
+        "id": 4,
+        "imgSrc": "../assets/icons/services-videogames.svg",
+        "alt": "service-videogames-icon",
+        "title": "Creación de videojuegos",
+        "description": "Nuestro servicio de <strong>creación de videojuegos</strong> está diseñado para llevar tus visiones más audaces a la realidad, creando experiencias interactivas que cautivan y entretienen a jugadores de todo el mundo. Ya sea para PC, consolas o dispositivos móviles, nuestro equipo de desarrolladores, artistas y diseñadores de juegos trabaja en estrecha colaboración contigo para crear juegos que no solo son divertidos de jugar, sino que también dejan una impresión duradera."
+    },
+    {
+        "id": 5,
+        "imgSrc": "../assets/icons/services-teach.svg",
+        "alt": "service-teach-icon",
+        "title": "Asesorías y Clases de Sistemas Computacionales",
+        "description": "Ofrecemos <strong>asesorías personalizadas y clases de sistemas computacionales</strong> diseñadas para estudiantes, profesionales y empresas que buscan profundizar su comprensión y habilidades en tecnología. Desde fundamentos de la computación hasta temas avanzados como desarrollo de software, inteligencia artificial y seguridad informática, nuestro equipo de expertos está aquí para guiarte en tu camino de aprendizaje."
+    },
+    {
+        "id": 6,
+        "imgSrc": "../assets/icons/services-consulting.svg",
+        "alt": "service-consultoria-icon",
+        "title": "Consultoría Tecnológica",
+        "description": "Nuestro enfoque se centra en entender profundamente los desafíos y objetivos de tu negocio para desarrollar estrategias personalizadas que aprovechen al máximo la tecnología disponible. Desde la transformación digital hasta la optimización de procesos y la implementación de sistemas de TI, nuestro equipo de expertos está dedicado a <strong>ayudarte a superar obstáculos y alcanzar nuevos niveles de éxito."
+    }
+]
