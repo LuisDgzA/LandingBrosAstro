@@ -1,27 +1,34 @@
 ---
     import { Image } from 'astro:assets'
     import mainLogo from '../assets/Principal.png'
+    import { getCollection } from 'astro:content'
+    const services = await getCollection('services')
 ---
 
 <nav id="topbar" class="shadow-lg">
     <div class="container mx-auto flex justify-between items-center py-4">
-        <a href="./"><Image src={mainLogo} width="160" height="80" alt="Icono BrosValley" /> </a>
-        <ul class="flex m-0 p-0 gap-5 items-center">
+        <a href="../../"><Image src={mainLogo} width="160" height="80" alt="Icono BrosValley" /> </a>
+        <ul id="navList" class="flex m-0 p-0 gap-5 items-center">
             <li class="nav__link"><a href="acerca.html">Acerca</a></li>  
             
             <li class="nav__link dropdown">
                 <a href="#" class="dropbtn">Servicios</a>
                 <div class="dropdown-content">
-                    <a href="sistemas.html">Sistemas hechos a la medida</a>
-                    <a href="paginas-web.html">Páginas web</a>
-                    <a href="apps-moviles.html">Apps móviles</a>
-                    <a href="videojuegos.html">Creación de videojuegos</a>
-                    <a href="asesorias.html">Asesorías y Clases de Sistemas Computacionales</a>
-                    <a href="consultoria.html">Consultoría tecnológica</a>
+                    {
+                        services.map(service => (
+                            
+                            <a href={`/servicios/${service.data.pageRoute}`}>{service.data.title}</a>
+                        ))
+                    }
+                    <!-- <a href="/servicios/paginas">Páginas web</a>
+                    <a href="/servicios/apps">Apps móviles</a>
+                    <a href="/servicios/videojuegos">Creación de videojuegos</a>
+                    <a href="/servicios/asesorias">Asesorías y Clases de Sistemas Computacionales</a>
+                    <a href="/servicios/consultoria">Consultoría tecnológica</a> -->
                 </div>
             </li>
             
-            <li class="nav__link border-2 border-black rounded-full"><a href="inicia-tu-proyecto.html">Contáctanos</a></li>
+            <li class="nav__link lg:border-2 lg:border-black lg:rounded-full"><a class="border-2 border-black py-2 px-4 rounded-4xl lg:border-none lg:p-0" href="../inicia-tu-proyecto">Contáctanos</a></li>
 
         </ul>
         <button class="btn-menu btn-transparent btn-menu--open">
@@ -40,25 +47,26 @@
 </nav>
 
 <style>
-    .nav__link {
-        padding: 0.5em 1em;
-        /* margin-left: 20px; */
-        transition: color 0.3s ease;
-        text-decoration: none;
-        list-style: none;
-        &:not(:last-of-type){
-            border-bottom: 1px solid transparent;            
-        }
 
+    @reference "../styles/globals.css";
+    .nav__link {
+        &:not(:last-of-type){
+            border-bottom: 1px solid transparent;
+                    
+        }
+        @apply py-2 px-4 no-underline list-none hover:text-celurean-300 lg:block;
+       
+        transition: color 0.3s ease;
+
+        
+        
     }
+
+   
 
     .nav__link a{
         text-decoration: none;
         color: inherit;
-    }
-
-    .nav__link:hover{
-        color: var(--400);
     }
 
     .dropdown {
@@ -104,23 +112,112 @@
     }
 
     .btn-transparent{
-        background-color: transparent;
+        /* background-color: transparent; */
         cursor: pointer;
-        /* margin: 0; */
-        padding: 0;
-        display: grid;
-        place-items: center;
-        border: none;
+        /* padding: 0; */
+        /* display: grid; */
+        /* place-items: center; */
+        /* border: none; */
     }
 
     .btn-menu--close{
-        display: block;
+        /* display: block; */
         z-index: 101;    
     }
-    @media (width >= 64rem){
+
+    .menu-is-open, .loader--is--active{
+        overflow: hidden;
+    }
+
+    .menu-is-open .header__logo{
+        z-index: 101; 
+    }
+    @media (width >= 992px){
 
         .btn-menu--open, .btn-menu--close{
             display: none;
         }
+        .nav__link {
+            &:not(:last-of-type){
+                border-bottom: 1px solid transparent;
+                        
+            }
+            @apply  hover:border-b-celurean-300;
+        }
+
+        .nav__link:last-of-type:hover{
+            border-bottom: 2px solid #000;
+        }
+    }
+
+    @media (width < 991.98px) {
+        #navList{
+            display: none;
+        }
+        #navList.nav--visible{
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100svh;
+            background-color: #fff;
+            /* border: 1px solid red; */
+            width: 100%;
+            z-index: 100;
+            padding-top: 5rem;
+            
+            li{
+                text-align: center;
+            }
+        }
+
+        .dropdown {
+            display: block;
+            /* text-align: center; */
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            margin: 8px auto 0px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dropdown-content {
+            position: static;
+            /* display: none; */
+            /* text-align: left; */
+            width: 100%;
+            box-shadow: none;
+            background-color: transparent;
+
+            a{
+                text-align: center !important;
+            }
+        }
     }
 </style>
+
+<script>
+function init(){
+	const btnsMenu = document.querySelectorAll(".btn-menu"),
+	menuOpen = document.querySelector(".btn-menu--open"),
+	menuClose = document.querySelector(".btn-menu--close"),
+	body = document.body,
+	nav = document.getElementById("navList")
+
+
+
+
+	btnsMenu.forEach(btnMenu => {
+		btnMenu.addEventListener("click", function(){
+			nav?.classList.toggle("nav--visible")
+			menuOpen?.classList.toggle("hidden")
+			menuClose?.classList.toggle("hidden")
+			body.classList.toggle("menu-is-open")
+		})
+	}) 
+
+}
+
+init()
+</script>

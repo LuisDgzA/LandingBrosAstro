@@ -1,0 +1,65 @@
+---
+const { order, title, description, index } = Astro.props;
+
+---
+
+<div class="services_step w-8/10 h-[20rem] md:h-[24rem] lg:h-[18rem] m-auto rounded-2xl " style=`--order:${order}`>
+    <div class="w-full h-9/10 m-auto bg-white shadow-lg rounded-xl relative p-12 grid">
+        <span class="absolute top-0 left-0 text-6xl font-bold text-celurean-500 opacity-30">0{index}</span>
+        <h4 class="text-xl font-bold text-celurean-500 mb-4">{title}</h4>
+        <p>{description}</p>
+    
+    </div>
+</div>
+
+<style>
+    @media (width >= 768px) {
+        /* .services_step:nth-child(odd) {
+            padding: 0px 3rem 0px 0px;
+        } */
+    }
+    @media (width >= 912px) {
+        .services_step:nth-child(odd){
+            margin-right: 3rem;
+            
+        }
+
+        .services_step:nth-child(even){
+            margin-left: 3rem;
+        }
+        .services_step:nth-child(odd) {
+            grid-column: 1;
+        }
+
+        .services_step:nth-child(even) {
+            grid-column: 2;
+        }
+
+        .services_step:nth-child(1){
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+        .services_step:nth-child(2){
+            grid-row-start: 2;
+            grid-row-end: 4;
+            grid-column-start: 2;
+
+        }
+        .services_step:nth-child(3){
+            grid-row-start: 3;
+            grid-row-end: 5;
+
+        }
+        .services_step:nth-child(4){
+            grid-row-start: 4;
+            grid-row-end: 6;
+            grid-column-start: 2;
+
+        }
+        .services_step:nth-child(5){
+            grid-row-start: 5;
+            grid-row-end: 7;
+
+        }
+    }
+</style>

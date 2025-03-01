@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@tailwind utilities;
+
 @theme {
     --color-celurean-100: #28B2EF;
     --color-celurean-200: #2696E7;
@@ -7,20 +9,25 @@
     --color-celurean-400: #2169DC;
     --color-celurean-500: #1F4DD4;
     --color-celurean-600: #1C30CD;
+    --breakpoint-*: initial;
+    /* --breakpoint-xs: 0px; */
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-2xl: 1400px;
+
+    
+}
+
+@layer utilities {
+    .container {
+        @apply sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1140px] 2xl:max-w-[1320px] px-4;
+    }
 }
 
 :root{
-    --50: #E8EFFD;
-    --200: #A6C2F7;
-    --100: #D5E2FB;
-    --300: #7CA6F3;
-    --400: #5289EF;
-    --500: #276CEB;
-    --600: #1352C9;
-    --700: #0E3D95;
-    --800: #092862;
-    --900: #051533;
-    --950: #020A17;
+    --tw-shadow-color: 0 0 #0000;
 }
 
 body{
@@ -28,10 +35,100 @@ body{
 }
 
 .btn_gen {
-    padding: 0.5rem 1.5rem;
-    background-color: var(--color-celurean-500);
-    color: #fff;
-    border-radius: 3rem;
-    text-decoration: none;
+    @apply px-6 py-2 bg-celurean-500 text-white rounded-full no-underline;
+    box-shadow: 0px 4px 8px 0px #07307A66;
+
 }
 
+.menu-is-open, .loader--is--active {
+    overflow: hidden;
+}
+
+.loader__container.loader--active{
+    display: grid;
+}
+
+.loader__container{
+    position: absolute;
+    width: 100%;
+    /* height: 100svh; */
+    background-color: rgba(167, 167, 167, 0.2);
+    z-index: 2000;
+    display: grid;
+    place-content: center;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: none;
+    place-content: center;
+}
+
+.lds-grid {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-grid div {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-celurean-500);
+    animation: lds-grid 1.2s linear infinite;
+}
+.lds-grid div:nth-child(1) {
+    top: 8px;
+    left: 8px;
+    animation-delay: 0s;
+}
+.lds-grid div:nth-child(2) {
+    top: 8px;
+    left: 32px;
+    animation-delay: -0.4s;
+}
+.lds-grid div:nth-child(3) {
+    top: 8px;
+    left: 56px;
+    animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(4) {
+    top: 32px;
+    left: 8px;
+    animation-delay: -0.4s;
+}
+.lds-grid div:nth-child(5) {
+    top: 32px;
+    left: 32px;
+    animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(6) {
+    top: 32px;
+    left: 56px;
+    animation-delay: -1.2s;
+}
+.lds-grid div:nth-child(7) {
+    top: 56px;
+    left: 8px;
+    animation-delay: -0.8s;
+}
+.lds-grid div:nth-child(8) {
+    top: 56px;
+    left: 32px;
+    animation-delay: -1.2s;
+}
+.lds-grid div:nth-child(9) {
+    top: 56px;
+    left: 56px;
+    animation-delay: -1.6s;
+}
+
+@keyframes lds-grid {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}

@@ -1,0 +1,15 @@
+---
+const { title, description } = Astro.props;
+---
+
+<div class="card-services w-[25rem] min-h-[15rem] p-8 border-transparent border-2 rounded-2xl bg-transparent">
+    <h4 class="font-bold text-xl text-celurean-500 mb-6">{title}</h4>
+    <p>{description}</p>
+
+</div>
+
+<style>
+    .card-services{
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(145deg, transparent 35%, var(--color-celurean-500), var(--color-celurean-600)) border-box;
+    }
+</style>

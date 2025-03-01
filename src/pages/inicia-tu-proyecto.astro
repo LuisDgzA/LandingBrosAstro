@@ -1,0 +1,182 @@
+---
+import Loader from "../components/Loader.astro";
+import Layout from "../layouts/Layout.astro";
+
+
+---
+<Layout title="Inicia tu proyecto">
+    <section id="proyecto">
+        <div class="container mx-auto">
+            <div class="flex flex-col lg:flex-row md:justify-around mt-8 md:mt-16">
+                <div class="w-full mb-8 lg:w-3/10">
+                    <h1 class="text-3xl font-bold">¿Buscas dar el primer paso hacia el <span class="text-celurean-500">éxito</span>?</h1>
+                    <p class="text-2xl mt-4">¡Estás en el lugar correcto!</p>
+                </div>
+                <form class="w-full lg:w-1/2" id="form__contact_project">
+                    <div class="form-group">
+                        <label for="contact_project_name">Nombre:</label>
+                        <input class="form__proyecto__element" type="text" id="contact_project_name" name="nombre" required>
+                    </div>
+                    <div class="form-group flex flex-col md:flex-row gap-4">
+                        <div class="input-form-group">
+                            <label for="contact_project_email">Correo Electrónico:</label>
+                            <input class="form__proyecto__element" type="email" id="contact_project_email" name="email" required>
+                        </div>
+                        <div class="no-margin input-form-group grow">
+                            <label for="contact_project_phone">Teléfono:</label>
+                            <input class="form__proyecto__element" type="tel" id="contact_project_phone" name="telefono" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact_project_company">Nombre de tu empresa:</label>
+                        <input class="form__proyecto__element" type="text" id="contact_project_company" name="nombre-empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact_project_project_type">Selecciona una opción:</label>
+                        <select class="form__proyecto__element" id="contact_project_project_type" name="opciones">
+                            <option value="opcion0">Selecciona tu tipo de proyecto</option>
+                            <option value="Website">Website</option>
+                            <option value="App">App</option>
+                            <option value="Juego">Juego</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact_project_message">Describenos tu idea:</label>
+                        <textarea class="form__proyecto__element" id="contact_project_message" name="mensaje" rows="5"></textarea>
+                    </div>
+                    <div class="g-recaptcha" data-sitekey="6LfC_H0pAAAAAKvW3765IuIiP6b7J85ilVedGYum"></div>
+                    <br/>
+                    <button class="btn_gen mt-1 display-ib" type="submit">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <Loader></Loader>
+</Layout>
+
+<style>
+    @reference "../styles/globals.css";
+    .form__proyecto__element{
+        @apply w-full p-2 rounded-lg border-1 border-celurean-600 text-sm;
+    }
+    .form-group{
+        @apply mb-4;
+    }
+</style>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    let formStartProject = document.getElementById('form__contact_project');
+    let nameInput = document.getElementById('contact_project_name'),
+        emailInput = document.getElementById('contact_project_email'),
+        phoneInput = document.getElementById('contact_project_phone'),
+        companyNameInput = document.getElementById('contact_project_company'),
+        projectTypeInput = document.getElementById('contact_project_project_type'),
+        messageInput = document.getElementById('contact_project_message');
+
+    let emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    let phoneRegex = /^[0-9]{10}$/i;
+
+
+    formStartProject?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const phoneValue = phoneInput?.value;
+
+        if (phoneValue === "" || phoneValue === "0" || !isValidPhoneNumber(phoneValue)) {
+            alert("Debe especificar un número telefónico de 10 dígitos.");
+            return;
+        }
+
+        if(!emailRegex.test(emailInput?.value)) {
+            alert("Debes ingresar un correo válido.");
+            return 0;
+        }
+
+        const recaptchaResponse = grecaptcha.getResponse();
+
+        if (recaptchaResponse === "") {
+            alert("Por favor, completa la verificación reCAPTCHA.");
+            return;
+        }
+        
+        let data = {
+            name: nameInput.value,
+            phone: phoneInput.value,
+            email: emailInput.value,
+            companyName: companyNameInput.value,
+            projectType: projectTypeInput.value,
+            message: messageInput.value,
+            gCaptchaResponse: recaptchaResponse
+        };
+
+        try {
+            toggleLoader()
+            let response = await fetch('https://us-central1-brosvalley-firebase.cloudfunctions.net/mailing-service', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert("Se envió el formulario exitosamente.");
+
+                grecaptcha.reset();
+                formStartProject.reset();
+                toggleLoader();
+
+            } else {
+                throw new Error('Error al enviar el formulario.');
+            }
+        } catch (error) {
+            console.error(error);
+            toggleLoader()
+            alert("Hubo un error al enviar el formulario.");
+        }
+    });
+
+    function isValidPhoneNumber(phone) {
+        return !isNaN(phone) && phoneRegex.test(phone);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputPhone = document.getElementById("contact_project_phone");
+        const inputName = document.getElementById("contact_project_name")
+
+        if (inputPhone) {
+            inputPhone.addEventListener("keypress", (event) => {
+                const charCode = event.which || event.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                event.preventDefault();
+                }
+            });
+        }
+        if(inputName){
+            inputName.addEventListener("keypress", (event) => {
+                checkNoNumber(event)
+            });
+        }
+    });
+    function checkNoNumber(e) {
+        let keyCode = (document.all) ? e.keyCode : e.which;
+        let pattern = /[A-Za-záéíóúñÜÑÁÉÍÓÚ ]/;
+        let typedChar = String.fromCharCode(keyCode);
+        if (!pattern.test(typedChar) && keyCode !== 8 && keyCode !== 32) {
+          e.preventDefault();
+        }
+        
+        // return pattern.test(typedChar) || keyCode == 8 || keyCode == 32;
+    }
+
+    function toggleLoader(){
+        const loader = document.querySelector(".loader__container"),
+        body = document.body;
+        console.log("loader")
+
+        loader?.classList.toggle("loader--active")
+        body.classList.toggle("loader--is--active")
+
+    }
+    
+</script>

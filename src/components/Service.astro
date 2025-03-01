@@ -4,9 +4,9 @@ import { Image } from "astro:assets";
     const { imgSrc, alt, title, description, index } = Astro.props;
 ---
 
-<!-- <Image loading="lazy" class="img__service w-7/10 m-auto sticky top-12" src={imgSrc} alt={alt} style=`--ga:img${index}`/> -->
-<div class="services__item" style=`--ga:text${index}`>
-    <h2 class="text-2xl text-celurean-500 font-bold pb-8">{title}</h2>
+<!-- <Image loading="lazy" class="img__service hidden md:block" src={imgSrc} alt={alt} style=`--ga:img${index}`/> -->
+<div class="services__item py-8 md:py-20" style=`--ga:text${index}`>
+    <h2 class="text-2xl text-celurean-500 font-bold pb-8 text-center md:text-left">{title}</h2>
     <p class="services__item--text" set:html={description}></p>
 </div>
 
@@ -20,10 +20,18 @@ import { Image } from "astro:assets";
 		grid-area: var(--ga);
 	}
 
-    .img__service.active{
+    .services__item{
+        grid-area: var(--ga);
+    }
+
+    /* .services__item{
+        padding-top: 5rem;
+    } */
+
+    /* .img__service.active{
 		display: block;
 		animation: fade-in 1s forwards;    
-	}
+	} */
 
     
     @keyframes fade-in{

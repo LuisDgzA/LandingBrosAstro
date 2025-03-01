@@ -402,6 +402,15 @@
         }
     }
 
+    @media (width < 576px){
+        .slider .slide svg {
+            max-width: 5rem;
+        }
+        .slider{
+            --slider-transformation: -2000px;
+        }
+    }
+
     @keyframes infiniteScroll {
         0% {
             left: 0;

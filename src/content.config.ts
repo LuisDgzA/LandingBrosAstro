@@ -9,6 +9,16 @@ const services = defineCollection({
             imgSrc: image(),
             alt: z.string(),
             title: z.string(),
+            pageRoute: z.string(),
+            shortTitle: z.string(),
+            heroDescription: z.string(),
+            heroImgSrc: image(),
+            servicesWhy: z.array(
+                z.object({ title: z.string(), description: z.string() })
+            ),
+            processes: z.array(
+            z.object({ order: z.number(), title: z.string(), description: z.string() })
+            ),
             description: z.string()
         }),
 });

@@ -1,0 +1,129 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import CardServiceWhy from "../../components/CardServiceWhy.astro";
+import CardProcess from "../../components/CardProcess.astro";
+import Footer from "../../components/Footer.astro";
+
+
+
+export const getStaticPaths = (async () => {
+    const services = await getCollection('services')
+
+    const arrayServices = services.map(({ data: {pageRoute, heroDescription, shortTitle, heroImgSrc, description, servicesWhy, processes}}) => (
+        {
+            params: {
+                name: pageRoute
+            },
+            props: {
+                name: pageRoute,
+                heroDescription,
+                heroTitle: shortTitle,
+                heroImgSrc,
+                description,
+                servicesWhy,
+                processes
+            }
+        }
+    ))
+
+    // console.log('xd',services)
+    return arrayServices;
+}) satisfies GetStaticPaths;
+
+const { name } = Astro.params;
+const { heroDescription, heroTitle, heroImgSrc, description, servicesWhy, processes} = Astro.props;
+---
+
+<Layout title={name}>
+    <header>
+		<div class="wrapper__main">
+			<div class="container mx-auto fadeIn">
+				<div class="flex flex-col md:flex-row pt-20 pb-8 gap-8">
+					<div class="w-full md:w-1/2 lg:pt-10">
+						<h1 class="text-2xl text-celurean-500 capitalize font-bold relative service__view__title" data-name={heroTitle}>{heroTitle}</h1>
+						<p class="mt-4">{heroDescription}</p>
+						<a class="btn_gen mt-6 inline-block" href="inicia-tu-proyecto.html">Inicia tu proyecto</a>
+					</div>
+					<div class="w-full hidden md:w-1/2 md:grid place-items-center">
+						<Image class="hero_img w-1/2 md:w-4/5 lg:w-3/5"  src={heroImgSrc}  alt="Imagen Home"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+    <main>
+        <section class="pb-12" id="whyChoose">
+            <div class="container mx-auto">
+                <p class="text-center pt-12" set:html={description}></p>
+                <h2 class="text-center text-3xl font-bold mt-12">¿Por qué <span class="text-celurean-500">elegirnos?</span></h2>
+            </div>
+            <div class="container mx-auto flex flex-wrap gap-12 justify-center mt-12">
+                {
+                    servicesWhy.map(service => <CardServiceWhy {...service}/>)
+                }
+                
+            </div>
+        </section>
+        <section class="pb-12" id="ourProcess">
+            <div class="container mx-auto">
+                <h2 class="text-center text-3xl font-bold">Nuestro <span class="text-celurean-500">proceso</span></h2>
+            </div>
+            <div class="container mx-auto mt-12 services_steps_container">
+                {
+                    processes.map((process,index) => <CardProcess {...process} index={index+1}/>)
+                }
+                
+            </div>
+        </section>
+    </main>
+    <Footer></Footer>
+</Layout>
+
+<style>
+    @reference "../../styles/globals.css";
+    .wrapper__main{
+		background: url("../../assets/hermo_home_bg.png");
+		background-position: bottom;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+    h1{
+        text-transform: uppercase;
+    }
+
+    .service__view__title{
+        text-transform: capitalize;
+    }
+   
+    .service__view__title::before{ 
+        content: attr(data-name);  
+        @apply block text-celurean-600 absolute text-3xl lg:text-5xl xl:text-7xl bottom-2 md:bottom-4 opacity-20 left-5 leading-[4rem];
+        
+    }
+
+    #whyChoose{
+        background: linear-gradient(180deg, #ecf9ff 0%, #A4E4FF 100%);
+    }
+
+    #ourProcess{
+        background: linear-gradient(180deg, #A4E4FF 0%,  #34A4E2 100%);
+    }
+
+    .services_steps_container {
+            display: grid;
+            grid-template-columns: 1fr;
+            /* grid-template-rows: repeat(6, 1fr); */
+            /* gap: 5rem; */
+        }
+
+    @media (width >= 912px) {
+        .services_steps_container {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            grid-template-rows: repeat(6, 1fr);
+        }
+    }
+</style>

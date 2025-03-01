@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 import Layout from '../layouts/Layout.astro';
-import '../styles/globals.css'
+
 import Topbar from '../components/Topbar.astro';
 
 import hero_home from '../assets/hero_home.png'
@@ -13,7 +13,7 @@ import SectionFindus from '../Sections/SectionFindus.astro';
 import Footer from '../components/Footer.astro';
 
 const services = await getCollection('services')
-console.log(services);
+// console.log(services);
 
 
 
@@ -23,18 +23,17 @@ console.log(services);
 
 <Layout title="brosvalley">
 	<header>
-		<Topbar/>
 		<div class="wrapper__main">
 			<div class="container mx-auto fadeIn">
-				<div class="flex pt-20 pb-8 gap-8">
-					<div class="w-1/2 order-0">
+				<div class="flex flex-col md:flex-row pt-20 pb-8 gap-8">
+					<div class="w-full md:w-1/2 order-1 md:order-0">
 						<h1><span class="bg-gray-200 text-sm rounded font-normal px-3 py-1">Desarrollo de software</span></h1>
 						<h1 class="text-4xl font-bold"> <br><span class="text-celurean-500">Soluciones digitales</span>, <br> futuro sin fronteras</h1>
 						<p class="mt-4">BrosValley es tu aliado tecnológico para llevar tu producto o servicio al siguiente nivel. Así que si estás listo, contáctanos hoy mismo</p>
 						<a class="btn_gen mt-6 inline-block" href="inicia-tu-proyecto.html">Inicia tu proyecto</a>
 					</div>
-					<div class="w-1/2 grid place-items-center order-1">
-						<Image class="hero_img"  src={hero_home}  alt="Imagen Home"/>
+					<div class="w-full md:w-1/2 grid place-items-center order-0 md:order-1">
+						<Image class="hero_img w-1/2 md:w-4/5"  src={hero_home}  alt="Imagen Home"/>
 					</div>
 				</div>
 			</div>
@@ -43,13 +42,27 @@ console.log(services);
 	<main>
 		<section id="services" class="py-20">
             <div class="container mx-auto">
-                <h2 class="text-center text-3xl font-bold py-16">Nuestros <span class="text-celurean-500">servicios</span></h2>
-                <div class="services__wrapper">                    
+                <h2 class="text-center text-3xl font-bold py-6 md:py-16">Nuestros <span class="text-celurean-500">servicios</span></h2>
+                <div class="services__wrapper">
+					<div class="image_service_wrapper hidden md:block" style="--ga:img1;">
+						<img class="image_service hidden md:block" src="../src/assets/icons/service-web.svg" alt="service-web">						
+					</div>
+					{
+						services.map((service, index) =>(
+									<div class="image_service_wrapper block lg:hidden" style={`--ga:img${index+1}`}>
+										<Image class="image_service"  src={service.data.imgSrc} alt="service-web"/>
+									</div>
+								)					
+						)
+					}
+					<!-- <div class=""> -->
+						
                     {
 						services.map((service, index) =>(
 							<Service {...service.data } index={index+1}/>
 						))
 					}
+					<!-- </div>                   -->
                 </div>
             </div>
             
@@ -60,10 +73,24 @@ console.log(services);
 	</main>
 </Layout>
  <style>
-	.hero_img{
+	/* .hero_img{
 		width: 80%;
 		max-width: none;
+	} */
+
+	.image_service{
+		position: sticky;
+		top: 5rem;
+		width: 80%;
+		margin: auto;
 	}
+
+	.image_service_wrapper{
+		grid-area: var(--ga);
+	}
+
+	
+
 	.wrapper__main{
 		background: url("../assets/hermo_home_bg.png");
 		background-position: bottom;
@@ -77,14 +104,14 @@ console.log(services);
 
 	.services__wrapper{
 		display: grid;
-		gap: 3rem;
+		/* gap: 3rem; */
 		grid-template-areas:
 		"img1 text1"
-		"img2 text2"
-		"img3 text3"
-		"img4 text4"
-		"img5 text5"
-		"img6 text6";
+		"img1 text2"
+		"img1 text3"
+		"img1 text4"
+		"img1 text5"
+		"img1 text6";
 							
 		grid-template-columns: 1fr 1fr;
 		position: relative;
@@ -93,9 +120,9 @@ console.log(services);
 	
 	
 
-	@media (width < 991.98px){
+	@media (width < 1022.98px){
 		.services__wrapper{
-			flex-direction: column;
+			/* flex-direction: column; */
 			
 			grid-template-areas:
 			"img1"
@@ -118,29 +145,47 @@ console.log(services);
  </style>
 
  <script>
-	const $service_text_items = document.querySelectorAll(".services__item"),
-    $img_service = document.querySelectorAll(".img__service");
-    
 
-    
+	 document.addEventListener("DOMContentLoaded", () => {
+		const $service_text_items = document.querySelectorAll(".services__item"),
+		$img_service = document.querySelectorAll(".img__service");
 
-    document.addEventListener("scroll", (event) => {
-        if (window.innerWidth > 991) {
-    
-            if($img_service[$img_service.length - 1].getBoundingClientRect().top > -50){
-                //contar cuantos elementos tienen un top negativo y regresar ese valor para saber el index
-                let index = getTopDistance($service_text_items);
-                $img_service.forEach($img => {
-                    $img.classList.remove("active")
-                })
-                $img_service[index].classList.add("active")
-            }
-        }else{
-            $img_service.forEach($img => {
-                $img.classList.add("active")
-            })
-        }
-    });
+		console.log($service_text_items);
+	
+		const imgService = document.querySelector(".image_service")
+		
+		const servicesImg = [
+			'../src/assets/icons/service-web.svg',
+			'../src/assets/icons/service-pages.svg',
+			'../src/assets/icons/services-app.svg',
+			'../src/assets/icons/services-videogames.svg',
+			'../src/assets/icons/services-teach.svg',
+			'../src/assets/icons/services-consulting.svg'
+		]
+		
+	
+		document.addEventListener("scroll", (event) => {
+			if (window.innerWidth > 991) {
+		
+				if($service_text_items[$service_text_items.length - 1].getBoundingClientRect().top > -50){
+					//contar cuantos elementos tienen un top negativo y regresar ese valor para saber el index
+					let index = getTopDistance($service_text_items);
+					console.log('index',index)
+					imgService.src = servicesImg[index]
+					/*$img_service.forEach($img => {
+						$img.classList.remove("active")
+					})
+					$img_service[index].classList.add("active")*/
+				}
+			}else{
+				$img_service.forEach($img => {
+					$img.classList.add("active")
+				})
+			}
+		});
+
+	})
+
 
 	function getTopDistance(array:any){
 		let contador = 0;
@@ -148,7 +193,7 @@ console.log(services);
 
 			let distanceTop = array[index].getBoundingClientRect().top
 
-			if((distanceTop * -1) + 300 >= array[index].offsetHeight ){
+			if((distanceTop * -1) + 200 >= array[index].offsetHeight ){
 				contador ++             
 			}       
 		}
